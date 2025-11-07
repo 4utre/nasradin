@@ -4,9 +4,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Remove SSL mode from connection string if present
+const connectionString = process.env.DATABASE_URL?.replace('?sslmode=require', '');
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  connectionString: connectionString,
+  ssl: false // Disable SSL for local PostgreSQL
 });
 
 export const query = async (text, params) => {
