@@ -1,9 +1,13 @@
-import { base44 } from './base44Client';
+import { apiClient } from './base44Client';
 
+// Entity query helper
+export const Query = {
+  list: (entityName, sortBy) => apiClient.entities[entityName].list(sortBy),
+  get: (entityName, id) => apiClient.entities[entityName].get(id),
+  create: (entityName, data) => apiClient.entities[entityName].create(data),
+  update: (entityName, id, data) => apiClient.entities[entityName].update(id, data),
+  delete: (entityName, id) => apiClient.entities[entityName].delete(id),
+};
 
-export const Query = base44.entities.Query;
-
-
-
-// auth sdk:
-export const User = base44.auth;
+// Auth SDK
+export const User = apiClient.auth;
