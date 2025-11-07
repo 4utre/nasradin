@@ -1,21 +1,21 @@
-FROM node:18-alpine AS builder
+FROM node:18-alpine
 
 WORKDIR /app
 
 # Copy package files
-COPY backend/package*.json ./
+COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm install --production
 
 # Copy source code
-COPY backend/src ./src
-
-# Expose port
-EXPOSE 3000
+COPY src ./src
 
 # Create uploads directory
 RUN mkdir -p uploads
+
+# Expose port
+EXPOSE 3000
 
 # Start the application
 CMD ["node", "src/index.js"]
